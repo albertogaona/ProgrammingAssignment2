@@ -1,22 +1,31 @@
 ## Inverses a matrix and caches the inversed matrix to 
 ## avoid repetitive calculations
 
-## Generars an object (a list) with for functions 
-## to access the cache. The functions itself is to be
+## Generates an object (a list) with three functions 
+## to access the cache (get, set, getInverse). The functions itself is to be
 ## considered a constructor.
 
 makeCacheMatrix <- function(x = matrix()) {
   m <- NULL
   i <- NULL
+  
+  # Sets the matrix. If matrix is in cache, it does not
+  # recalculate inverse
   set <- function(mx) {
     m <<- mx
     i <<- solve(mx)
   }
-  ##POPULATE FROM CONSTRUCTOR
+  
+  ##Populate from constructor
   set(x)
   
+  ## Gets matrix from cache
   get <- function() { m }
+  
+  ## Gets pre-calculated inverse matrix
   getInverse <- function() { i }
+  
+  ## Returns 'object'
   list(set = set, get = get, getInverse = getInverse)
 }
 
