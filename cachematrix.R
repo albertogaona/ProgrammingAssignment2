@@ -1,39 +1,61 @@
 ## Inverses a matrix and caches the inversed matrix to 
 ## avoid repetitive calculations
 
-## Generates an object (a list) with three functions 
-## to access the cache (get, set, getInverse). The functions itself is to be
+## Generars an object (a list) with for functions 
+## to access the cache. The functions itself is to be
 ## considered a constructor.
 
 makeCacheMatrix <- function(x = matrix()) {
   m <- NULL
+  ## The cached inverse matrix
   i <- NULL
   
-  # Sets the matrix. If matrix is in cache, it does not
-  # recalculate inverse
+  # Puts matrix in cache
   set <- function(mx) {
     m <<- mx
-    i <<- solve(mx)
   }
   
-  ##Populate from constructor
+  ##POPULATE FROM CONSTRUCTOR
   set(x)
   
-  ## Gets matrix from cache
+  ## Fetches matrix from cache
   get <- function() { m }
   
-  ## Gets pre-calculated inverse matrix
-  getInverse <- function() { i }
+  ## Fetches cached inverse matrix
+  getInverse <- function() { 
+    i 
+  }
   
-  ## Returns 'object'
-  list(set = set, get = get, getInverse = getInverse)
+  ## Puts invers in cache
+  setInverse <- function(inv) {
+    i < inv
+  }
+  
+  ## Returns the matrix 'object'
+  list(set = set, get = get, getInverse = getInverse, setInverse = setInverse)
 }
 
 
 ## Returns the inverse from the matrix. If the matrix is already in
 ## the cache it does no recalculate and just returns the value from
 ## the cache.
+##
+## x the matrix to be inversed 
 
 cacheSolve <- function(x, ...) {
-  x$getInverse()
+  if (is.null(x)) {
+    ## Reset m:
+    m <<- NULL
+    i <<- NULL
+    return (i)
+  }
+  
+  if (!is.null(m) && identical(m,x)) {
+      ## Matrix hasn't changed: Inverse from cache
+      return (i)
+  }
+  m <<- x
+  ## Matrix changed/new: calculate inverse
+  i <<- solve(m)
+  i
 }
