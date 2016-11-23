@@ -1,7 +1,7 @@
 ## Inverses a matrix and caches the inversed matrix to 
 ## avoid repetitive calculations
 
-## Generars an object (a list) with for functions 
+## Generates an object (a list) with four functions 
 ## to access the cache. The functions itself is to be
 ## considered a constructor.
 
